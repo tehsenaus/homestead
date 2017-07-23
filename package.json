@@ -1,0 +1,47 @@
+{
+  "name": "homestead",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build:ts": "tsc",
+    "watch:ts": "npm run build:ts -- --watch",
+    "build:dev": "npm run build:ts",
+    "watch": "npm run watch:ts",
+    "test": "mocha lib/**/*.spec.js",
+    "browse": "webpack-dev-server --hot",
+    "start": "npm-run-all --parallel watch browse",
+    "prepublish": "npm run build:dev"
+  },
+  "author": "Dynamo Studios",
+  "license": "None",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "random-js": "^1.0.8",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-mdl": "^1.9.0",
+    "react-redux": "^5.0.5",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.41",
+    "@types/react": "^15.0.38",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "browser-sync": "^2.18.6",
+    "css-loader": "^0.26.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
+    "mocha": "^3.2.0",
+    "npm-run-all": "^4.0.1",
+    "react-hot-loader": "^1.3.1",
+    "should": "^11.2.1",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^2.0.0",
+    "typescript": "latest",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}

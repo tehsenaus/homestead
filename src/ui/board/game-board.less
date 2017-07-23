@@ -1,0 +1,39 @@
+
+.game-board {
+	display: grid;
+	grid-template-columns: repeat(5, 8em);
+	grid-gap: 5px;
+}
+
+.land-tile {
+	width: 8em;
+	height: 8em;
+	margin: 0.25em;
+	display: inline-block;
+}
+
+.land-tile-empty {
+	box-sizing: border-box;
+	border: 2px dashed black;
+}
+.land-tile-grass {
+	background: olivedrab;
+}
+.land-tile-plains {
+	background: peru;
+}
+.land-tile-desert {
+	background: papayawhip;
+}
+.land-tile-mountains {
+	background: gray;
+}
+
+
+.land-claim {
+	font-size: 2em;
+	width: 1em;
+	height: 1em;
+	background: red;
+	border-radius: 0.5em;
+}
