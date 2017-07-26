@@ -1,4 +1,7 @@
 
+export const GRASS = 'grass';
+export const PLAINS = 'plains';
+
 export interface TerrainType {
 	name: string;
 	colour: string;
@@ -6,12 +9,12 @@ export interface TerrainType {
 }
 
 export const terrainTypes: {[type: string]: TerrainType} = {
-	grass: {
+	[GRASS]: {
 		name: 'Grassland',
 		colour: 'green',
 		numberOfTiles: 10
 	},
-	plains: {
+	[PLAINS]: {
 		name: 'Plains',
 		colour: 'orange',
 		numberOfTiles: 10

@@ -1,3 +1,4 @@
+@import (reference) "../colours";
 
 .market-board {
 	display: inline-block;
@@ -9,7 +10,7 @@
 
 .market-board-food {
 	.box.filled {
-		background-color: yellow;
+		background-color: @food;
 	}
 }
 
@@ -21,7 +22,7 @@
 
 .market-board-oil {
 	.box.filled {
-		background-color: black;
+		background-color: @oil;
 		color: white;
 	}
 }

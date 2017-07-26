@@ -1,0 +1,44 @@
+
+.card {
+	font-size: 18px;
+	width: 16em;
+	height: 24em;
+	background: #eee;
+	border-radius: 0.5em;
+	position: fixed;
+	left: 50%;
+	top: 20%;
+	margin-left: -8em;
+	overflow: hidden;
+	box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+
+	> h1 {
+		@fs: 1.25em;
+
+		font-size: @fs;
+		padding: 0.5em 0.5em;
+		background: yellow;
+		margin: 0;
+		text-indent: 2em / @fs;
+	}
+
+	h2 {
+		font-size: 0.875em;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 2em;
+	}
+}
+
+.card-cost {
+	position: absolute;
+	left: 0.25em;
+	top: 0.5em;
+	width: 2em;
+	height: 2em;
+	border-radius: 1em;
+	box-shadow: 0.125em 0.125em 0.125em rgba(0,0,0,0.5);
+	line-height: 2em;
+	text-align: center;
+	background: gold;
+}

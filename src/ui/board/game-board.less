@@ -1,4 +1,6 @@
 
+@import (reference) "../colours";
+
 .game-board {
 	display: grid;
 	grid-template-columns: repeat(5, 8em);
@@ -17,10 +19,10 @@
 	border: 2px dashed black;
 }
 .land-tile-grass {
-	background: olivedrab;
+	background: @grass;
 }
 .land-tile-plains {
-	background: peru;
+	background: @plains;
 }
 .land-tile-desert {
 	background: papayawhip;

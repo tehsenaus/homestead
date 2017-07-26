@@ -1,0 +1,54 @@
+
+@import (reference) "../colours";
+
+.colon {
+	margin: 0 0.33em;
+}
+.arrow {
+	margin: 0 0.5em;
+}
+
+.industry-card-production {
+	padding: 1em;
+}
+
+.industry-card-production-rule {
+	line-height: 2em;
+	padding: 0 1em;
+	> * { vertical-align: middle; }
+
+	cursor: pointer;
+	&:hover {
+		background: rgba(0,0,0,0.25);
+	}
+}
+
+.terrain-type {
+	width: 1em;
+	height: 1em;
+	display: inline-block;
+}
+
+.commodity {
+	width: 1em;
+	height: 1em;
+	display: inline-block;
+	border: 1px solid black;
+	margin: 0 0.125em;
+}
+
+.terrain-type-grass {
+	background-color: @grass;
+}
+.terrain-type-plains {
+	background-color: @plains;
+}
+
+.commodity-food {
+	background-color: @food;
+	color: @food_fg;
+}
+.commodity-oil {
+	background-color: @oil;
+	color: @oil_fg;
+}
