@@ -9,12 +9,12 @@ import './game-board.less'
 
 export interface GameBoardProps {
 	stateSelector: (state: any) => GameBoardState;
-	size: number;
+	size?: number;
 }
 
 export default class GameBoard extends React.Component<GameBoardProps, {}> {
 	render() {
-		const { tiles, size = 5 } = this.props;
+		const { size = 5 } = this.props;
 
 		return <div className="game-board">
 			{ range(size).map(y => range(size).map(x => this.renderTile(x, y))) }

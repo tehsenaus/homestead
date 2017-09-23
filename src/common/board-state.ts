@@ -1,13 +1,16 @@
 
 import {find, random} from "lodash/fp";
 import {terrainTypes} from "./entities/land-tiles";
-import {EXPLORE, CLAIM_LAND, GameBoardLocation} from "./game-board-actions";
+import { EXPLORE, CLAIM_LAND, GameBoardLocation, GameBoardAction, GameBoardActionType } from "./game-board-actions";
+import { IndustryType } from "./entities/industries";
 
 export interface LandTile extends GameBoardLocation {
 	terrainType: string;
 	x: number;
 	y: number;
 	claimedBy?: string;
+	industryType?: IndustryType;
+	industryLevel?: number;
 }
 
 export interface GameBoardState {
@@ -26,7 +29,7 @@ export function getLandTileLocation({x,y}: LandTile): GameBoardLocation {
 	return {x,y}
 }
 
-export default function boardStateReducer(state: GameBoardState = INITIAL_STATE, action) {
+export default function boardStateReducer(state: GameBoardState = INITIAL_STATE, action: GameBoardAction) {
 	switch (action.type) {
 		case EXPLORE: {
 
@@ -59,6 +62,24 @@ export default function boardStateReducer(state: GameBoardState = INITIAL_STATE,
 								...tile,
 								claimedBy: player
 							}
+						}
+					}
+
+					return tile;
+				})
+			}
+		}
+
+		case GameBoardActionType.Build: {
+			const {location, industryType} = action;
+			return {
+				...state,
+				tiles: state.tiles.map(tile => {
+					if ( tile.x === location.x && tile.y === location.y ) {
+						return {
+							...tile,
+							industryType,
+							industryLevel: tile.industryType === industryType ? (tile.industryLevel||0) + 1 : 1
 						}
 					}
 

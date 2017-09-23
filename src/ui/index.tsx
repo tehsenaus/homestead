@@ -6,7 +6,7 @@ import 'react-mdl/extra/material.js';
 import 'react-mdl/extra/material.css'
 
 import App from "./App";
-import {default as reducer, INITIAL_STATE} from './state'
+import {default as reducer} from './state'
 import middleware from './middleware';
 
 const WINDOW = window as any;
@@ -15,7 +15,6 @@ const composeEnhancers = WINDOW.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = WINDOW.store = createStore(
     reducer,
-	INITIAL_STATE,
     composeEnhancers(
 		applyMiddleware(...middleware)
 	)

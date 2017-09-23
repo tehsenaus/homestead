@@ -7,6 +7,7 @@ import './market-track.less'
 
 export interface MarketTrackProps {
 	commodity: Commodity;
+	amount: number;
 }
 
 const SELL = <span className="sell">🡇</span>;

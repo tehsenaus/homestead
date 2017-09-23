@@ -27,7 +27,7 @@ module.exports = {
         },
         {
             test: /\.ts(x?)$/,
-            loaders: ['react-hot', 'ts'],
+            loaders: ['react-hot', 'ts?configFileName=tsconfig.webpack.json'],
             include: path.join(__dirname, 'src')
         },
         {

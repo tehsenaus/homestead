@@ -2,21 +2,19 @@
 import * as React from 'react'
 import MarketBoard from "./markets/MarketBoard";
 import PlayerInventory from "./player/PlayerInventory";
+import PlayerTurn from "./player/PlayerTurn";
 import GameBoard from "./board/GameBoard";
-import Card from "./cards/IndustryCard";
 
 import {food} from "../common/entities/commodities"
-import {industrialProcesses} from "../common/entities/industries"
-import {getMarketsState, getPlayerState, getGameBoardState} from "./state";
+import {getMarketsState, getPlayerState, getGameBoardState, getPlayerUiState} from "./state";
 
 import "./app.less"
 
 export default class App extends React.Component<{}, {}> {
 	render() {
 		return <div className="app">
-			<Card industrialProcess={ industrialProcesses['mechAg'] } />
-
 			<PlayerInventory stateSelector={getPlayerState} />
+			<PlayerTurn stateSelector={getPlayerUiState} playerStateSelector={getPlayerState} />
 
 			<GameBoard stateSelector={getGameBoardState} />
 

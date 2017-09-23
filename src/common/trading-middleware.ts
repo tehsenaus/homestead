@@ -3,8 +3,7 @@ import {getMarketPrice} from "./market-state";
 import {BUY_OR_SELL} from "./player-actions";
 
 export default function createTradingMiddleware({
-	getMarketsState,
-	getPlayerState
+	getMarketsState
 }) {
 	return store => next => action => {
 		switch ( action.type ) {

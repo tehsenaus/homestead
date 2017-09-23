@@ -1,6 +1,14 @@
 
-export const EXPLORE = 'explore';
-export const CLAIM_LAND = 'claim-land';
+import { IndustryType } from "./entities/industries";
+
+export enum GameBoardActionType {
+	Explore = "explore",
+	ClaimLand = "claim-land",
+	Build = "build"
+}
+
+export const EXPLORE = GameBoardActionType.Explore;
+export const CLAIM_LAND = GameBoardActionType.ClaimLand;
 
 export interface GameBoardLocation {
 	x: number;
@@ -8,14 +16,22 @@ export interface GameBoardLocation {
 }
 
 export interface ExploreAction {
-	type: 'explore';
+	type: GameBoardActionType.Explore;
 }
 
 export interface ClaimLandAction {
-	type: 'claim-land';
+	type: GameBoardActionType.ClaimLand;
 	location: GameBoardLocation;
 	player?: string;
 }
+
+export interface BuildAction {
+	type: GameBoardActionType.Build;
+	location: GameBoardLocation;
+	industryType: IndustryType;
+}
+
+export type GameBoardAction = ExploreAction | ClaimLandAction | BuildAction;
 
 export function explore() {
 	return {
@@ -28,5 +44,13 @@ export function claimLand(location: GameBoardLocation) {
 		type: CLAIM_LAND,
 		location,
 		player: 'me'
+	}
+}
+
+export function build(location: GameBoardLocation, industryType: IndustryType) {
+	return {
+		type: GameBoardActionType.Build,
+		location,
+		industryType
 	}
 }

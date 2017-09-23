@@ -9,6 +9,7 @@ import MarketTrack from './MarketTrack';
 import './market-board.less';
 
 export interface MarketProps {
+	commodityType: string;
 	commodity: commodities.Commodity;
 	amount: number;
 

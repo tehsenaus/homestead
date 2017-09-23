@@ -1,9 +1,11 @@
 
 import {BUY_OR_SELL} from "./player-actions";
+import {IndustrialProcess, industrialProcesses} from "./entities/industries";
 
 export interface PlayerState {
 	money: number;
 	commodities: {[commodityType: string]: number};
+	industryCards: IndustrialProcess [];
 }
 
 const INITIAL_STATE: PlayerState = {
@@ -12,7 +14,11 @@ const INITIAL_STATE: PlayerState = {
 		food: 0,
 		metal: 0,
 		oil: 0
-	}
+	},
+	industryCards: [
+		industrialProcesses.basicAg,
+		industrialProcesses.basicAg
+	]
 }
 
 export default function playerReducer(state: PlayerState = INITIAL_STATE, action): PlayerState {

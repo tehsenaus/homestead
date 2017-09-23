@@ -1,16 +1,26 @@
 
+@cardRatio: 16/24;
+
+.industry-card-header-colours () {
+	&.industry-type-agriculture {
+		@selector {
+			background: yellow;
+		}
+	}
+}
+
 .card {
+	position: relative;
+	display: inline-block;
 	font-size: 18px;
-	width: 16em;
+	width: 24em * @cardRatio;
 	height: 24em;
 	background: #eee;
 	border-radius: 0.5em;
-	position: fixed;
-	left: 50%;
 	top: 20%;
-	margin-left: -8em;
 	overflow: hidden;
 	box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+	text-align: left;
 
 	> h1 {
 		@fs: 1.25em;
@@ -30,10 +40,8 @@
 	}
 }
 
-.card-cost {
-	position: absolute;
-	left: 0.25em;
-	top: 0.5em;
+.cost {
+	display: inline-block;
 	width: 2em;
 	height: 2em;
 	border-radius: 1em;
@@ -41,4 +49,13 @@
 	line-height: 2em;
 	text-align: center;
 	background: gold;
+	font-size: 0.75em;
+}
+
+.card-cost {
+	.cost();
+	position: absolute;
+	left: 0.25em;
+	top: 0.5em;
+	font-size: 1em;
 }
