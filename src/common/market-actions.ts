@@ -1,12 +1,11 @@
-
-export const BUY_OR_SELL = "buyOrSell";
+export const BUY_OR_SELL = 'buyOrSell';
 
 export enum MarketActionType {
-	BuyOrSell = 'buyOrSell'
+	BuyOrSell = 'buyOrSell',
 }
 
 export enum MarketEventType {
-	BoughtOrSold = 'boughtOrSold'
+	BoughtOrSold = 'boughtOrSold',
 }
 
 export interface MarketBuySellAction {
@@ -26,22 +25,22 @@ export function buy(commodityType: string, amount: number) {
 	return {
 		type: BUY_OR_SELL,
 		commodityType,
-		amount
-	}
+		amount,
+	};
 }
 
 export function sell(commodityType: string, amount: number) {
 	return {
 		type: BUY_OR_SELL,
 		commodityType,
-		amount: -amount
-	}
+		amount: -amount,
+	};
 }
 
 export function onBoughtOrSold(action: MarketBuySellAction, cost: number): MarketBoughtOrSoldEvent {
 	return {
 		...action,
 		type: MarketEventType.BoughtOrSold,
-		cost
-	}
+		cost,
+	};
 }

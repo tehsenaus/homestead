@@ -1,11 +1,10 @@
-
-import { IndustryType } from "./entities/industries";
+import {IndustryType} from './entities/industries';
 
 export enum GameBoardActionType {
-	Explore = "explore",
-	ClaimLand = "claim-land",
-	Build = "build",
-	Produce = "produce"
+	Explore = 'explore',
+	ClaimLand = 'claim-land',
+	Build = 'build',
+	Produce = 'produce',
 }
 
 export const EXPLORE = GameBoardActionType.Explore;
@@ -41,22 +40,22 @@ export type GameBoardAction = ExploreAction | ClaimLandAction | BuildAction | Pr
 
 export function explore() {
 	return {
-		type: EXPLORE
-	}
+		type: EXPLORE,
+	};
 }
 
 export function claimLand(location: GameBoardLocation) {
 	return {
 		type: CLAIM_LAND,
 		location,
-		player: 'me'
-	}
+		player: 'me',
+	};
 }
 
 export function build(location: GameBoardLocation, industryType: IndustryType) {
 	return {
 		type: GameBoardActionType.Build,
 		location,
-		industryType
-	}
+		industryType,
+	};
 }

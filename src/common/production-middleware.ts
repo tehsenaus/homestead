@@ -1,30 +1,27 @@
-
-import {getMarketPrice} from "./market-state";
-import {PlayerActionType} from "./player-actions";
-import { getLandTileAtLocation } from "./board-state";
+import {getLandTileAtLocation} from './board-state';
+import {getMarketPrice} from './market-state';
+import {PlayerActionType} from './player-actions';
 
 export default function createProductionMiddleware({
-	gameBoardStateSelector
+	gameBoardStateSelector,
 }) {
-	return store => next => action => {
-		switch ( action.type ) {
+	return (store) => (next) => (action) => {
+		switch (action.type) {
 			case PlayerActionType.Produce: {
 				const {location} = action;
 				const state = store.getState();
-                const gameBoardState = gameBoardStateSelector(state);
-                const {terrainType} = getLandTileAtLocation(gameBoardState, location);
-
-				
+				const gameBoardState = gameBoardStateSelector(state);
+				const {terrainType} = getLandTileAtLocation(gameBoardState, location);
 
 				const cost = price * amount;
 
 				return next({
 					...action,
-					cost
-				})
+					cost,
+				});
 			}
 		}
 
 		return next(action);
-	}
+	};
 }

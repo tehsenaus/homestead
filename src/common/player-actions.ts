@@ -1,13 +1,12 @@
-
-import { BUY_OR_SELL, buy, sell, MarketBuySellAction, MarketBoughtOrSoldEvent, MarketEventType } from "./market-actions";
-import { ProduceAction, GameBoardLocation, GameBoardActionType } from "./game-board-actions";
-import { IndustryProductionRule } from "./entities/industries";
-export { BUY_OR_SELL };
+import {IndustryProductionRule} from './entities/industries';
+import {GameBoardActionType, GameBoardLocation, ProduceAction} from './game-board-actions';
+import {buy, BUY_OR_SELL, MarketBoughtOrSoldEvent, MarketBuySellAction, MarketEventType, sell} from './market-actions';
+export {BUY_OR_SELL};
 
 export enum PlayerActionType {
-	Explore = "explore",
-	ClaimLand = "claim-land",
-	Build = "build"
+	Explore = 'explore',
+	ClaimLand = 'claim-land',
+	Build = 'build',
 }
 export namespace PlayerActionType {
 	export const Produce = GameBoardActionType.Produce;
@@ -25,7 +24,7 @@ export interface PlayerBuySellAction extends MarketBuySellAction {
 }
 
 export enum PlayerEventType {
-	Produced = "produced"
+	Produced = 'produced',
 }
 export namespace PlayerEventType {
 	export const BoughtOrSold = MarketEventType.BoughtOrSold;
@@ -40,7 +39,6 @@ export interface PlayerProducedEvent {
 
 export type PlayerEvent = PlayerProducedEvent | MarketBoughtOrSoldEvent;
 
-
 export function explore(player: string) {
 
 }
@@ -53,8 +51,8 @@ export function produce(location: GameBoardLocation, productionRule: IndustryPro
 	return {
 		type: PlayerActionType.Produce,
 		location,
-		productionRule
-	}
+		productionRule,
+	};
 }
 
 export function onPlayerProduced(location: GameBoardLocation, productionRule: IndustryProductionRule) {
@@ -62,20 +60,20 @@ export function onPlayerProduced(location: GameBoardLocation, productionRule: In
 		type: PlayerEventType.Produced,
 		cost: 0,
 		inputCommodities: productionRule.inputCommodities,
-		outputCommodities: productionRule.outputCommodities
-	}
+		outputCommodities: productionRule.outputCommodities,
+	};
 }
 
 export function buyFromMarket(player: string, commodityType: string, amount: number) {
 	return {
 		...buy(commodityType, amount),
-		player
-	}
+		player,
+	};
 }
 
 export function sellToMarket(player: string, commodityType: string, amount: number) {
 	return {
 		...sell(commodityType, amount),
-		player
-	}
+		player,
+	};
 }

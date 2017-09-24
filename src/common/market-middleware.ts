@@ -1,16 +1,15 @@
-
-import {getMarketPrice} from "./market-state";
-import {MarketActionType, onBoughtOrSold} from "./market-actions";
+import {MarketActionType, onBoughtOrSold} from './market-actions';
+import {getMarketPrice} from './market-state';
 
 /**
  * Market middleware is responsible for assigning costs to buy/sell actions
  * on the commodity market, based on the current market state.
  */
 export default function createMarketMiddleware({
-	getMarketsState
+	getMarketsState,
 }) {
-	return store => next => action => {
-		switch ( action.type ) {
+	return (store) => (next) => (action) => {
+		switch (action.type) {
 			case MarketActionType.BuyOrSell: {
 				const {commodityType, amount} = action;
 				const state = store.getState();
@@ -21,15 +20,15 @@ export default function createMarketMiddleware({
 					commodityType,
 					buyOrSell,
 					Math.abs(amount),
-					marketsState
+					marketsState,
 				);
 
-                const cost = price * amount;
+				const cost = price * amount;
 
 				return next(onBoughtOrSold(action, cost));
 			}
 		}
 
 		return next(action);
-	}
+	};
 }

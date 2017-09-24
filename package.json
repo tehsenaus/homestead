@@ -11,7 +11,9 @@
     "test": "mocha lib/**/*.spec.js",
     "browse": "webpack-dev-server --hot",
     "start": "npm-run-all --parallel watch browse",
-    "prepublish": "npm run build:dev"
+    "prepublish": "npm run build:dev",
+    "lint": "./node_modules/.bin/tslint src/**/*.ts src/**/*.tsx",
+    "fix": "./node_modules/.bin/tslint -c tslint.json --fix src/**/*.ts src/**/*.tsx"
   },
   "author": "Dynamo Studios",
   "license": "None",
@@ -41,6 +43,8 @@
     "should": "^11.2.1",
     "style-loader": "^0.13.1",
     "ts-loader": "^2.0.0",
+    "tslint": "^5.7.0",
+    "tslint-react": "^3.2.0",
     "typescript": "latest",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"

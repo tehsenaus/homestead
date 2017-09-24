@@ -1,3 +1,8 @@
 node_modules/
 lib/
 typings/
+.idea
+*.iml
+npm-debug.log
+src/**/*.js
+src/**/*.map

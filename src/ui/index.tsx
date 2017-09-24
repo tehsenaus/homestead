@@ -1,29 +1,29 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { createStore, applyMiddleware, compose } from 'redux'
-import {Provider} from 'react-redux'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import 'react-mdl/extra/material.css';
 import 'react-mdl/extra/material.js';
-import 'react-mdl/extra/material.css'
+import {Provider} from 'react-redux';
+import {applyMiddleware, compose, createStore} from 'redux';
 
-import App from "./App";
-import {default as reducer} from './state'
+import App from './App';
 import middleware from './middleware';
+import {default as reducer} from './state';
 
 const WINDOW = window as any;
 
 const composeEnhancers = WINDOW.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = WINDOW.store = createStore(
-    reducer,
-    composeEnhancers(
-		applyMiddleware(...middleware)
-	)
+	reducer,
+	composeEnhancers(
+		applyMiddleware(...middleware),
+	),
 );
-const rootEl = document.getElementById('root')
+const rootEl = document.getElementById('root');
 
 ReactDOM.render(
 	<Provider store={store}>
-    	<App />
+		<App />
 	</Provider>,
-  rootEl
+	rootEl,
 );

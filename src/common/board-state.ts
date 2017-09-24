@@ -1,8 +1,7 @@
-
-import {find, random} from "lodash/fp";
-import {terrainTypes} from "./entities/land-tiles";
-import { EXPLORE, CLAIM_LAND, GameBoardLocation, GameBoardAction, GameBoardActionType } from "./game-board-actions";
-import { IndustryType } from "./entities/industries";
+import {find, random} from 'lodash/fp';
+import {IndustryType} from './entities/industries';
+import {terrainTypes} from './entities/land-tiles';
+import {CLAIM_LAND, EXPLORE, GameBoardAction, GameBoardActionType, GameBoardLocation} from './game-board-actions';
 
 export interface LandTile extends GameBoardLocation {
 	terrainType: string;
@@ -19,19 +18,19 @@ export interface GameBoardState {
 }
 
 export const INITIAL_STATE: GameBoardState = {
-	tiles: [{x:0,y:0,terrainType:'grass'}]
-}
+	tiles: [{x: 0, y: 0, terrainType: 'grass'}],
+};
 
 export function getLandTileAt(x: number, y: number, state: GameBoardState) {
-	return find({x,y})(state.tiles);
+	return find({x, y})(state.tiles);
 }
 
-export function getLandTileAtLocation({x,y}: GameBoardLocation, state: GameBoardState) {
+export function getLandTileAtLocation({x, y}: GameBoardLocation, state: GameBoardState) {
 	return getLandTileAt(x, y, state);
 }
 
-export function getLandTileLocation({x,y}: LandTile): GameBoardLocation {
-	return {x,y}
+export function getLandTileLocation({x, y}: LandTile): GameBoardLocation {
+	return {x, y};
 }
 
 export function isLandTileActive(landTile: LandTile) {
@@ -44,7 +43,7 @@ export default function boardStateReducer(state: GameBoardState = INITIAL_STATE,
 
 			// TODO: replace with deterministic RNG
 			const terrainTypeNames = Object.keys(terrainTypes);
-			const terrainType = terrainTypeNames[random(0, terrainTypeNames.length-1)];
+			const terrainType = terrainTypeNames[random(0, terrainTypeNames.length - 1)];
 
 			return {
 				...state,
@@ -53,10 +52,10 @@ export default function boardStateReducer(state: GameBoardState = INITIAL_STATE,
 					{
 						terrainType,
 						x: state.tiles.length % 5,
-						y: Math.floor(state.tiles.length / 5)
-					}
-				]
-			}
+						y: Math.floor(state.tiles.length / 5),
+					},
+				],
+			};
 		}
 
 		case CLAIM_LAND: {
@@ -64,54 +63,54 @@ export default function boardStateReducer(state: GameBoardState = INITIAL_STATE,
 
 			return {
 				...state,
-				tiles: state.tiles.map(tile => {
-					if ( tile.x === location.x && tile.y === location.y ) {
-						if ( !tile.claimedBy ) {
+				tiles: state.tiles.map((tile) => {
+					if (tile.x === location.x && tile.y === location.y) {
+						if (!tile.claimedBy) {
 							return {
 								...tile,
-								claimedBy: player
-							}
+								claimedBy: player,
+							};
 						}
 					}
 
 					return tile;
-				})
-			}
+				}),
+			};
 		}
 
 		case GameBoardActionType.Build: {
 			const {location, industryType} = action;
 			return {
 				...state,
-				tiles: state.tiles.map(tile => {
-					if ( tile.x === location.x && tile.y === location.y ) {
+				tiles: state.tiles.map((tile) => {
+					if (tile.x === location.x && tile.y === location.y) {
 						return {
 							...tile,
 							industryType,
-							industryLevel: tile.industryType === industryType ? (tile.industryLevel||0) + 1 : 1
-						}
+							industryLevel: tile.industryType === industryType ? (tile.industryLevel || 0) + 1 : 1,
+						};
 					}
 
 					return tile;
-				})
-			}
+				}),
+			};
 		}
 
 		case GameBoardActionType.Produce: {
 			const {location} = action;
 			return {
 				...state,
-				tiles: state.tiles.map(tile => {
-					if ( tile.x === location.x && tile.y === location.y ) {
+				tiles: state.tiles.map((tile) => {
+					if (tile.x === location.x && tile.y === location.y) {
 						return {
 							...tile,
-							inactive: true
-						}
+							inactive: true,
+						};
 					}
 
 					return tile;
-				})
-			}
+				}),
+			};
 		}
 	}
 
