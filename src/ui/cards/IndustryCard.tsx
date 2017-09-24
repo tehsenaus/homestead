@@ -2,15 +2,19 @@
 import {range} from "lodash";
 import * as React from 'react'
 import * as commodities from '../../common/entities/commodities';
-import { IndustrialProcess, IndustryConstructionRule } from '../../common/entities/industries'
+import { IndustrialProcess, IndustryConstructionRule, IndustryProductionRule } from '../../common/entities/industries'
 import Card from './Card';
 
 import './industry-card.less'
+import { TerrainType } from "../../common/entities/land-tiles";
 
 export interface IndustryCardProps {
 	industrialProcess: IndustrialProcess;
 
+	terrainType?: TerrainType;
+
 	onBuild?: (card: IndustrialProcess, rule: IndustryConstructionRule) => void;
+	onProduce?: (card: IndustrialProcess, rule: IndustryProductionRule) => void;
 }
 
 const TerrainType = ({terrainType}) => <div className={`terrain-type terrain-type-${terrainType}`} />;
@@ -39,13 +43,21 @@ export default class IndustryCard extends React.Component<IndustryCardProps, {}>
 				</div>) }
 
 				<h2>Production</h2>
-				{ productionRules.map(rule => <div className="industry-card-production-rule">
-					<TerrainType terrainType={rule.terrainType} />
-					<span className="colon">:</span>
-					{ this.renderCommodityList(rule.inputCommodities) }
-					<span className="arrow">⇨</span>
-					{ this.renderCommodityList(rule.outputCommodities) }
-				</div>) }
+				{ productionRules.map(rule =>
+					<div
+						className="industry-card-production-rule"
+						onClick={ (() => {
+							if (!this.props.onProduce) return;
+							this.props.onProduce( this.props.industrialProcess, rule )
+						}) }
+					>
+						<TerrainType terrainType={rule.terrainType} />
+						<span className="colon">:</span>
+						{ this.renderCommodityList(rule.inputCommodities) }
+						<span className="arrow">⇨</span>
+						{ this.renderCommodityList(rule.outputCommodities) }
+					</div>
+				) }
 			</div>
 		</Card>
 	}

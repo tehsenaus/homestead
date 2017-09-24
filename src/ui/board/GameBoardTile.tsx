@@ -3,7 +3,7 @@ import * as React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {TerrainType} from "../../common/entities/land-tiles";
-import {LandTile, getLandTileAt, getLandTileLocation} from "../../common/board-state";
+import { LandTile, getLandTileAt, getLandTileLocation, isLandTileActive } from "../../common/board-state";
 import {GameBoardLocation, explore, claimLand} from "../../common/game-board-actions";
 import {range} from "lodash";
 
@@ -41,11 +41,12 @@ export class GameBoardTile extends React.Component<GameBoardTileProps, {}> {
 	render() {
 		if (this.props.landTile) {
 			const {terrainType, claimedBy, industryType, industryLevel} = this.props.landTile;
+			const isActive = isLandTileActive(this.props.landTile);
 			const iOwn = claimedBy === this.props.currentPlayer;
 			const canBuild = !claimedBy || iOwn;
-			const canProduce = iOwn && industryType;
+			const canProduce = iOwn && industryType && isActive;
 
-			return <div className={`land-tile land-tile-${terrainType}`}>
+			return <div className={`land-tile land-tile-${terrainType} ${isActive ? 'land-tile-active' : 'land-tile-inactive'}`}>
 				{ !claimedBy && <button onClick={this.onClaim}>Claim</button> }
 				{ canBuild && <button onClick={this.onBuild}>Build</button> }
 				{ canProduce && <button onClick={this.onProduce}>Produce</button> }

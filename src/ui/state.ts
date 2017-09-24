@@ -8,6 +8,7 @@ import {default as playerUiReducer} from "./player/player-ui-state";
 export const getMarketsState = ({markets}) => markets;
 export const getPlayerState = ({players}) => players;
 export const getGameBoardState = ({gameBoard}) => gameBoard;
+export const gameBoardStateSelector = getGameBoardState;
 export const getPlayerUiState = ({playerUi}) => playerUi;
 
 export default combineReducers({

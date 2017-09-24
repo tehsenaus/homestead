@@ -4,7 +4,8 @@ import { IndustryType } from "./entities/industries";
 export enum GameBoardActionType {
 	Explore = "explore",
 	ClaimLand = "claim-land",
-	Build = "build"
+	Build = "build",
+	Produce = "produce"
 }
 
 export const EXPLORE = GameBoardActionType.Explore;
@@ -31,7 +32,12 @@ export interface BuildAction {
 	industryType: IndustryType;
 }
 
-export type GameBoardAction = ExploreAction | ClaimLandAction | BuildAction;
+export interface ProduceAction {
+	type: GameBoardActionType.Produce;
+	location: GameBoardLocation;
+}
+
+export type GameBoardAction = ExploreAction | ClaimLandAction | BuildAction | ProduceAction;
 
 export function explore() {
 	return {

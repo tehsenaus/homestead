@@ -1,9 +1,13 @@
 
-import createTradingMiddleware from "../common/trading-middleware";
-import {getMarketsState} from "./state";
+import createMarketMiddleware from "../common/market-middleware";
+import createPlayerMiddleware from "../common/player-middleware";
+import {getMarketsState, gameBoardStateSelector} from "./state";
 
 export default [
-	createTradingMiddleware({
+	createPlayerMiddleware({
+		gameBoardStateSelector
+	}),
+	createMarketMiddleware({
 		getMarketsState
 	})
 ];

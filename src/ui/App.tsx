@@ -14,7 +14,11 @@ export default class App extends React.Component<{}, {}> {
 	render() {
 		return <div className="app">
 			<PlayerInventory stateSelector={getPlayerState} />
-			<PlayerTurn stateSelector={getPlayerUiState} playerStateSelector={getPlayerState} />
+			<PlayerTurn
+				stateSelector={getPlayerUiState}
+				playerStateSelector={getPlayerState}
+				gameBoardStateSelector={getGameBoardState}
+			/>
 
 			<GameBoard stateSelector={getGameBoardState} />
 

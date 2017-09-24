@@ -8,6 +8,7 @@ export interface LandTile extends GameBoardLocation {
 	terrainType: string;
 	x: number;
 	y: number;
+	inactive?: boolean;
 	claimedBy?: string;
 	industryType?: IndustryType;
 	industryLevel?: number;
@@ -25,8 +26,16 @@ export function getLandTileAt(x: number, y: number, state: GameBoardState) {
 	return find({x,y})(state.tiles);
 }
 
+export function getLandTileAtLocation({x,y}: GameBoardLocation, state: GameBoardState) {
+	return getLandTileAt(x, y, state);
+}
+
 export function getLandTileLocation({x,y}: LandTile): GameBoardLocation {
 	return {x,y}
+}
+
+export function isLandTileActive(landTile: LandTile) {
+	return !landTile.inactive;
 }
 
 export default function boardStateReducer(state: GameBoardState = INITIAL_STATE, action: GameBoardAction) {
@@ -80,6 +89,23 @@ export default function boardStateReducer(state: GameBoardState = INITIAL_STATE,
 							...tile,
 							industryType,
 							industryLevel: tile.industryType === industryType ? (tile.industryLevel||0) + 1 : 1
+						}
+					}
+
+					return tile;
+				})
+			}
+		}
+
+		case GameBoardActionType.Produce: {
+			const {location} = action;
+			return {
+				...state,
+				tiles: state.tiles.map(tile => {
+					if ( tile.x === location.x && tile.y === location.y ) {
+						return {
+							...tile,
+							inactive: true
 						}
 					}
 

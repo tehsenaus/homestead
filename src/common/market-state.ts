@@ -1,7 +1,7 @@
 
 import {Commodity, MarketLevel, food, metal, oil, energy} from "./entities/commodities";
 import {clamp} from "lodash";
-import {BUY_OR_SELL} from "./market-actions"
+import { BUY_OR_SELL, MarketEventType } from "./market-actions"
 
 export interface MarketCommodityState {
 	commodity: Commodity;
@@ -70,7 +70,7 @@ export function getMarketPrice(
 
 export default function marketsReducer(state: MarketsState = INITIAL_STATE, action) {
 	switch (action.type) {
-		case BUY_OR_SELL: {
+		case MarketEventType.BoughtOrSold: {
 			const {amount, commodityType} = action;
 
 			return {

@@ -2,6 +2,11 @@
 export const FOOD = 'food';
 export const OIL = 'oil';
 
+export enum CommodityType {
+	Food = 'food',
+	Oil = 'oil'
+}
+
 export type PriceClass = 'cheap' | 'normal' | 'expensive';
 export const PRICE_CHEAP: PriceClass = 'cheap';
 export const PRICE_NORMAL: PriceClass = 'normal';

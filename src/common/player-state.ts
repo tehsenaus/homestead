@@ -1,6 +1,7 @@
 
-import {BUY_OR_SELL} from "./player-actions";
+import { BUY_OR_SELL, PlayerActionType, PlayerEventType, PlayerEvent } from "./player-actions";
 import {IndustrialProcess, industrialProcesses} from "./entities/industries";
+import {mapValues} from "lodash";
 
 export interface PlayerState {
 	money: number;
@@ -21,9 +22,9 @@ const INITIAL_STATE: PlayerState = {
 	]
 }
 
-export default function playerReducer(state: PlayerState = INITIAL_STATE, action): PlayerState {
+export default function playerReducer(state: PlayerState = INITIAL_STATE, action: PlayerEvent): PlayerState {
 	switch (action.type) {
-		case BUY_OR_SELL: {
+		case PlayerEventType.BoughtOrSold: {
 			const {commodityType, amount, cost} = action;
 
 			return {
@@ -32,6 +33,20 @@ export default function playerReducer(state: PlayerState = INITIAL_STATE, action
 				commodities: {
 					...state.commodities,
 					[commodityType]: state.commodities[commodityType] + amount
+				}
+			}
+		}
+
+		case PlayerEventType.Produced: {
+			const {cost, inputCommodities, outputCommodities} = action;
+			
+			return {
+				...state,
+				money: state.money - cost,
+				commodities: {
+					...state.commodities,
+					...mapValues(outputCommodities, (n,k) => state.commodities[k] + n),
+					...mapValues(inputCommodities, (n,k) => state.commodities[k] - n),
 				}
 			}
 		}
