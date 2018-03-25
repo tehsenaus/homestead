@@ -1,18 +1,21 @@
-import {combineReducers} from 'redux';
-import {default as gameBoardReducer} from '../common/board-state';
-import {default as marketsReducer} from '../common/market-state';
-import {default as playersReducer} from '../common/player-state';
-import {default as playerUiReducer} from './player/player-ui-state';
+import { combineReducers, compose } from 'redux';
+import { default as playerUiReducer, PlayerUiState } from './player/player-ui-state';
+import * as gs from "../common/game-state";
 
-export const getMarketsState = ({markets}) => markets;
-export const getPlayerState = ({players}) => players;
-export const getGameBoardState = ({gameBoard}) => gameBoard;
-export const gameBoardStateSelector = getGameBoardState;
+export interface UiState {
+	game: gs.GameState;
+	playerUi: PlayerUiState;
+}
+
+export const getGameState = ({game}: UiState) => game;
 export const getPlayerUiState = ({playerUi}) => playerUi;
 
+export const getMarketsState = compose(gs.getMarketsState, getGameState);
+export const getPlayerState = compose(gs.getPlayersState, getGameState);
+export const getGameBoardState = compose(gs.getGameBoardState, getGameState);
+export const gameBoardStateSelector = getGameBoardState;
+
 export default combineReducers({
-	markets: marketsReducer,
-	players: playersReducer,
-	gameBoard: gameBoardReducer,
+	game: gs.gameReducer,
 	playerUi: playerUiReducer,
 });

@@ -16,8 +16,6 @@ export interface PlayerProduceAction extends ProduceAction {
 	productionRule: IndustryProductionRule;
 }
 
-export type PlayerAction = PlayerProduceAction;
-
 export interface PlayerBuySellAction extends MarketBuySellAction {
 	player: string;
 	cost?: number;
@@ -37,7 +35,9 @@ export interface PlayerProducedEvent {
 	outputCommodities: {[commodityType: string]: number};
 }
 
+export type PlayerIntent = PlayerBuySellAction | PlayerProduceAction;
 export type PlayerEvent = PlayerProducedEvent | MarketBoughtOrSoldEvent;
+export type PlayerAction = PlayerIntent | PlayerEvent;
 
 export function explore(player: string) {
 

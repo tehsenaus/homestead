@@ -4,7 +4,9 @@ import { PlayerUiAction, PlayerUiActionType } from "./player-ui-actions";
 import { PlayerState } from "../../common/player-state";
 import { GameBoardActionType } from "../../common/game-board-actions";
 import { GameBoardState, getLandTileAtLocation } from "../../common/board-state";
-import { PlayerEventType } from "../../common/player-actions";
+import { PlayerEventType, PlayerAction } from "../../common/player-actions";
+import { createSelector } from 'reselect';
+import { GameState, default as gameReducer } from "../../common/game-state";
 
 /**
  * Tracks the intermediate state of some player actions which require
@@ -13,11 +15,24 @@ import { PlayerEventType } from "../../common/player-actions";
 export interface PlayerUiState {
     currentPlayer: string;
     currentPlayerAction?: PlayerUiAction;
+
+    actionsRemaining: number;
+    playerActions: PlayerAction [];
 }
 
-export const INITIAL_STATE = {
-    currentPlayer: "me"
+export const INITIAL_STATE: PlayerUiState = {
+    currentPlayer: "me",
+    actionsRemaining: 2,
+    playerActions: [],
 };
+
+export const getGameStateAfterPlayerActions = createSelector(
+    (state: PlayerUiState) => state.playerActions,
+    (state: PlayerUiState, initialGameState: GameState) => initialGameState, 
+    (playerActions: PlayerAction [], initialGameState: GameState) => {
+        return playerActions.reduce(gameReducer, initialGameState);
+    }
+);
 
 export function isBuilding(state: PlayerUiState) {
     return state.currentPlayerAction && state.currentPlayerAction.type === PlayerUiActionType.Build;
